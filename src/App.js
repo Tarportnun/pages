@@ -6,7 +6,10 @@ import {
   Link
 } from 'react-router-dom'
 
-
+const students = [
+  {id: '12', name: 'John D', score: 23},
+  {id: '18', name: 'Jenny J', score: 27},
+  {id: '20', name: 'Tim B', score: 22}
 
 
 ]
