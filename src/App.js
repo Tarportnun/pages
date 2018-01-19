@@ -1,19 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import _ from 'lodash';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
+
+
+
+]
+
+const Home = () => (<div>Home</div>)
+const Students = () => (
+  <div>
+    {
+      _.map(students, s => <StudentLink {...s} key={s.id}/>)
+    }
+    <Route path="/students/:id" component={StudentContainer}/>
+  </div>
+)
+const StudentContainer = ({match}) => {
+  let s = _.find(students, ['id', match.params.id])
+  return (
+    <StudentLine {...s} key={s.id}/>
+  )
+}
+const StudentLink = ({id, name}) => (
+  <div><Link to={`/students/${id}`}>{name}</Link></div>
+)
+const StudentLine = ({id, name, score}) => (
+  <div>{id} {name} = {score}</div>
+)
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home}/>
+          <Route path="/students" component={Students}/> 
+        </div>       
+      </Router>
     );
   }
 }
